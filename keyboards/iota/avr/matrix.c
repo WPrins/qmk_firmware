@@ -94,7 +94,6 @@ static void select_rows(void) {
 }
 
 void matrix_power_down(void) {
-  iota_gfx_off();
 #if defined(ADAFRUIT_BLE_ENABLE) && ADAFRUIT_BLE_ENABLE_MODE_LEDS
   adafruit_ble_set_mode_leds(false);
 #endif
@@ -114,7 +113,6 @@ void matrix_power_up(void) {
   scan_count = 0;
 #endif
 
-  iota_gfx_on();
 #if defined(ADAFRUIT_BLE_ENABLE) && ADAFRUIT_BLE_ENABLE_MODE_LEDS
   adafruit_ble_set_mode_leds(true);
 #endif
@@ -123,7 +121,6 @@ void matrix_power_up(void) {
 void matrix_init(void) {
   TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 400000));
   iota_mcp23017_init();
-  iota_gfx_init();
 
 //  pinMode(D3, PinDirectionInput);
 //  iota_mcp23017_enable_interrupts();
@@ -205,7 +202,6 @@ static uint8_t matrix_scan_raw(void) {
 }
 
 uint8_t matrix_scan(void) {
-  iota_gfx_task();
 
   if (!matrix_scan_raw()) {
     return 0;
